@@ -1,10 +1,12 @@
 import htmlToElement from 'html-to-element';
 import searchBar from '../accordionSearchBar/accordionSearchBar';
+import listItem from '../listItemContainer/listItem/listItem';
 
 export default class siteList {
     constructor(parentDiv) {
         let $parentDiv = document.querySelector(`.${parentDiv}`);
         this.createAccordion($parentDiv);
+        this.createListItems();
         new searchBar(document.querySelector('.accordion__head--search'));
     }
 
@@ -22,5 +24,19 @@ export default class siteList {
       </div>`);
 
         $parentDiv.appendChild($accordion);
+
+        
+    }
+
+    createListItems() {
+        let $siteList = document.querySelector('#siteList');
+        let data = {
+            title: 'Site',
+            description: 'site id',
+            bgImageUrl: null,
+            targetUrl: `chayns.net/${this.description}`
+        };
+
+        new listItem(data, $siteList);
     }
 }

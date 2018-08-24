@@ -1,12 +1,13 @@
 import htmlToElement from 'html-to-element';
-import 'listItem.scss';
+import './listItem.scss';
 
-export default getListItem = (data) => {
-    let {title, description, bgImageUrl} = data;
+
+let getListItem = (data) => {
+    let {title, description, bgImageUrl, targetUrl} = data;
 
     const $listItem = htmlToElement(`
     <div class="ListItem ListItem--clickable">
-    <a href="https://chayns.net/64387-14541" target="_blank"><div class="ListItem__head">
+    <a href="${targetUrl}" target="_blank"><div class="ListItem__head">
     <div class="ListItem__Image" style="background: url(&quot;images/default_image_small.png&quot;) 0% 0% / 40px;">
     <div class="ListItem__Image" style="background: url(${bgImageUrl}) 0% 0% / 40px;">
     </div>
@@ -22,3 +23,5 @@ export default getListItem = (data) => {
 
     return $listItem;
 }
+
+export default getListItem;
