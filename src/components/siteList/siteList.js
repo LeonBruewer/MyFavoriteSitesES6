@@ -24,17 +24,16 @@ export default class siteList {
       </div>`);
 
         $parentDiv.appendChild($accordion);
-
-        
     }
 
     createListItems() {
+        
         let $siteList = document.querySelector('#siteList');
         let data = {
             title: 'Site',
             description: 'site id',
             bgImageUrl: null,
-            targetUrl: `chayns.net/${this.description}`
+            targetUrl: `https://chayns.net/${this.description}`
         };
 
         new listItem(data, $siteList);
