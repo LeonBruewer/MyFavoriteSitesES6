@@ -69,10 +69,10 @@ export default class siteList {
                 allowShowMore = true;
             }
 
-            for (var i = 0; i < fetchedData.length; i++) {
-                let siteId = fetchedData[i].siteId;
+            for (let dataElement of fetchedData) {
+                let siteId = dataElement.siteId;
                 let data = {
-                    title: fetchedData[i].appstoreName,
+                    title: dataElement.appstoreName,
                     description: siteId,
                     bgImageUrl: `https://sub60.tobit.com/l/${siteId}`,
                     targetUrl: `https://chayns.net/${siteId}`
