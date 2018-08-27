@@ -31,7 +31,7 @@ export default class siteList {
 
     createAccordion = ($parentDiv) => {
         const $accordion = htmlToElement(`
-        <div class="accordion">
+        <div class="accordion accordion--open" data-group="mfs" id="sitesAccordion">
         <div class="accordion__head accordion__head--search">
         Sites
         </div>
@@ -55,7 +55,7 @@ export default class siteList {
         const filter = `&Skip=${this.displayedSites}&Take=${this.sitesPerFetch + 1}`;
 
         console.log(searchTerm);
-        
+
         fetchSiteList(jsonUrl, filter)
         .then((fetchedData) => {
             if(this.displayedSites === 0) {
