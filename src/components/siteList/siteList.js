@@ -55,7 +55,7 @@ export default class siteList {
         const filter = `&Skip=${this.displayedSites}&Take=${this.sitesPerFetch + 1}`;
 
         console.log(searchTerm);
-
+        
         fetchSiteList(jsonUrl, filter)
         .then((fetchedData) => {
             if(this.displayedSites === 0) {
@@ -88,7 +88,10 @@ export default class siteList {
             else {
                 this.$showMoreDiv.style.display = 'none';
             }
+        }).catch(() => {
+            this.$siteList.innerHTML = '<p>Keine Ergebnisse</p>';
         });
+
     }
 
 createShowMoreBtn = () => {
