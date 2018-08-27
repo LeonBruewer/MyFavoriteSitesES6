@@ -29,15 +29,9 @@ export default class siteList {
         $parentDiv.appendChild($accordion);
     }
 
-    createListItems = () => {
-        
+    createListItems = (data) => {
         let $siteList = document.querySelector('#siteList');
-        let data = {
-            title: 'Site',
-            description: 'site id',
-            bgImageUrl: null,
-            targetUrl: `https://chayns.net/${this.description}`
-        };
+        
 
         new listItem(data, $siteList);
     }
@@ -45,12 +39,24 @@ export default class siteList {
     createList = () => {
         this.data;
         let searTerm = this.sb.getSearchterm();
-        const jsonUrl = `https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=chayns${searTerm}`;
+        if (searTerm === '')
+            searTerm = 'chayns';
+            
+        const jsonUrl = `https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searTerm}`;
 
         fetchSiteList(jsonUrl, '&Skip=0&Take=30')
         .then((fetchedData) => {
-            this.data = fetchedData;
-            console.log(this.data);
+
+            for (var i = 0; i < fetchedData.length; i++) {
+                let data = {
+                    title: fetchedData[i].appstoreName,
+                    description: fetchedData[i].siteId,
+                    bgImageUrl: null,
+                    targetUrl: `https://chayns.net/${this.description}`
+                };
+
+                this.createListItems(data);
+            }
         });
     }
 }
