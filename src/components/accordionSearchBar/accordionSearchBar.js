@@ -8,14 +8,12 @@ class searchBar {
         const $searchBar = htmlToElement(`
         
         <div id="searchBar" class="Suche Suche--accordion">
-            <input id="searchBar--searchTerm" type="text" placeholder="Suche" value="word">
+            <input id="searchBar--searchTerm" type="text" placeholder="Suche" value="">
             <label><i class="fa fa-search"></i></label>
         </div>
         `);
         this.$searchBar = $searchBar;
         $accordionHead.appendChild($searchBar);
-        
-        console.log(this.getSearchterm());
     }
 
     getSearchterm = () => document.querySelector('#searchBar--searchTerm').value;

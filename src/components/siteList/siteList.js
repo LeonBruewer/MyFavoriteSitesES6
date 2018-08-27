@@ -1,13 +1,16 @@
 import htmlToElement from 'html-to-element';
 import searchBar from '../accordionSearchBar/accordionSearchBar';
 import listItem from '../listItemContainer/listItem/listItem';
+import fetchSiteList from '../../utils/fetchData';
 
 export default class siteList {
     constructor(parentDiv) {
         let $parentDiv = document.querySelector(`.${parentDiv}`);
         this.createAccordion($parentDiv);
+        this.sb = new searchBar(document.querySelector('.accordion__head--search'));
+        this.createList();
         this.createListItems();
-        new searchBar(document.querySelector('.accordion__head--search'));
+        
     }
 
     createAccordion = ($parentDiv) => {
@@ -26,7 +29,7 @@ export default class siteList {
         $parentDiv.appendChild($accordion);
     }
 
-    createListItems() {
+    createListItems = () => {
         
         let $siteList = document.querySelector('#siteList');
         let data = {
@@ -37,5 +40,17 @@ export default class siteList {
         };
 
         new listItem(data, $siteList);
+    }
+
+    createList = () => {
+        this.data;
+        let searTerm = this.sb.getSearchterm();
+        const jsonUrl = `https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=chayns${searTerm}`;
+
+        fetchSiteList(jsonUrl, '&Skip=0&Take=30')
+        .then((fetchedData) => {
+            this.data = fetchedData;
+            console.log(this.data);
+        });
     }
 }
