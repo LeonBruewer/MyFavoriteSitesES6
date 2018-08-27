@@ -1,9 +1,34 @@
 import htmlToElement from 'html-to-element';
 
-export default class addSite {
+export default class addSiteForm {
     constructor($parent) {
         let $parentDiv = document.querySelector(`.${$parent}`);
-        $parentDiv.appendChild(this.getElement());
+        let $accordion = this.getElement();
+        let $sendButton = $accordion.querySelector('#send');
+        
+        $parentDiv.appendChild($accordion);
+        $sendButton.addEventListener('click', this.addSite);
+    }
+
+    addSite = () => {
+        var name = document.querySelector('#inpName').value;
+        var street = document.querySelector('#inpStreet').value;
+        var plz = document.querySelector('#inpPlz').value;
+        var ort = document.querySelector('#inpOrt').value;
+        var mail = document.querySelector('#inpMail').value;
+        var comment = document.querySelector('#inpComment').value;
+
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+            chayns.intercom.sendMessageToPage({ 
+                text: 'Name: ' + name + '\n Straße: ' + street + '\n PLZ: ' + plz + '\n Ort: ' + ort + '\n E-Mail: ' + mail + '\n Kommentar: ' + comment
+            }).then((data) => {            
+                if(data.status == 200)
+                chayns.dialog.alert('','Antrag wurde gestellt');
+            });
+        }
+        else {
+            chayns.dialog.alert('', 'Du musst eine gültige E-Mail Adresse angeben');
+        }
     }
 
     getElement = () => {

@@ -31,7 +31,7 @@ export default class siteList {
 
     createAccordion = ($parentDiv) => {
         const $accordion = htmlToElement(`
-        <div class="accordion accordion--open" data-group="mfs">
+        <div class="accordion accordion--open" data-group="mfs" id="sitesAccordion">
         <div class="accordion__head accordion__head--search">
         Sites
         </div>
