@@ -7,27 +7,23 @@ export default class siteList {
     constructor(parentDiv) {
         let $parentDiv = document.querySelector(`.${parentDiv}`);
         
+        this.searchTerm;
         this.displayedSites = 0;
         this.sitesPerFetch = 30;
         this.createAccordion($parentDiv);
         this.$siteList = document.querySelector('#siteList');
         this.sb = new searchBar(document.querySelector('.accordion__head--search'), 'chayns');
         this.createList();
+        this.createShowMoreBtn();
 
-        /* this.sb.$searchBar.addEventListener('keyup', () => {
-            this.sb.onUpdateSearchTerm()
-            .then((searTerm) => {
-                this.$siteList.innerHTML = '';
-                this.displayedSites = 0;
-                this.createList();
-                console.log(searTerm);
-            });
-        }); */
+        this.$showMoreBtn.addEventListener('click', this.showMore);
 
         this.sb.onChange = (value) => {
             console.log(value);
             
+                
             this.displayedSites = 0;
+            
             this.createList(value);
         }
         
@@ -53,12 +49,26 @@ export default class siteList {
         this.data;
         if (searchTerm === undefined)
             searchTerm = 'chayns';
-            
+        
+        this.searchTerm = searchTerm;
         const jsonUrl = `https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchTerm}`;
+        const filter = `&Skip=${this.displayedSites}&Take=${this.sitesPerFetch + 1}`;
 
-        fetchSiteList(jsonUrl, `&Skip=${this.displayedSites}&Take=${this.sitesPerFetch}`)
+        console.log(searchTerm);
+
+        fetchSiteList(jsonUrl, filter)
         .then((fetchedData) => {
-            this.$siteList.innerHTML = '';
+            if(this.displayedSites === 0) {
+                this.$siteList.innerHTML = '';
+            }
+            
+            let length = fetchedData.length;
+            let allowShowMore = false;
+
+            if (length > this.sitesPerFetch) {
+                allowShowMore = true;
+            }
+
             for (var i = 0; i < fetchedData.length; i++) {
                 let siteId = fetchedData[i].siteId;
                 let data = {
@@ -71,6 +81,27 @@ export default class siteList {
                 new listItem(data, this.$siteList);
                 this.displayedSites++;
             }
+            this.$siteList.appendChild(this.$showMoreDiv);
+            if (allowShowMore === true) {
+                this.$showMoreDiv.style.display = 'block';
+            }
+            else {
+                this.$showMoreDiv.style.display = 'none';
+            }
         });
+    }
+
+createShowMoreBtn = () => {
+    this.$showMoreDiv = htmlToElement(`
+            <div id="showMore__wrapper" style="text-align: right">
+                <a href="#" id="showMoreBtn">Mehr anzeigen</a>
+            </div>
+            `);
+    this.$showMoreBtn = this.$showMoreDiv.querySelector('#showMoreBtn');
+    this.$showMoreDiv.style.display = 'none';
+}
+
+    showMore = () => {
+        this.createList(this.searchTerm);
     }
 }
