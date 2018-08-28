@@ -46,10 +46,9 @@ export default class siteList {
         this.searchTerm = searchTerm;
         const jsonUrl = `https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchTerm}`;
         const filter = `&Skip=${this.displayedSites}&Take=${this.sitesPerFetch + 1}`;
-        console.log(`filter: ${filter}`);
+
         fetchSiteList(jsonUrl, filter)
         .then((fetchedData) => {
-            console.log(this.displayedSites);
             if(count === 0) {
                 this.$siteList.innerHTML = '';
             }
@@ -59,12 +58,13 @@ export default class siteList {
 
             if (length > this.sitesPerFetch) {
                 allowShowMore = true;
+                length = this.sitesPerFetch;
             }
 
-            for (let dataElement of fetchedData) {
-                let siteId = dataElement.siteId;
+            for (var i = 0; i < length; i++) {
+                let siteId = fetchedData[i].siteId;
                 let data = {
-                    title: dataElement.appstoreName,
+                    title: fetchedData[i].appstoreName,
                     description: siteId,
                     bgImageUrl: `https://sub60.tobit.com/l/${siteId}`,
                     targetUrl: `https://chayns.net/${siteId}`
