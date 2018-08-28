@@ -1,7 +1,6 @@
 import htmlToElement from 'html-to-element';
 import './listItem.scss';
 
-
 let getListItem = (data) => {
     let {title, description, bgImageUrl, targetUrl} = data;
 

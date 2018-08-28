@@ -11,12 +11,12 @@ export default class addSiteForm {
     }
 
     addSite = () => {
-        var name = document.querySelector('#inpName').value;
-        var street = document.querySelector('#inpStreet').value;
-        var plz = document.querySelector('#inpPlz').value;
-        var ort = document.querySelector('#inpOrt').value;
-        var mail = document.querySelector('#inpMail').value;
-        var comment = document.querySelector('#inpComment').value;
+        let name = document.querySelector('#inpName').value;
+        let street = document.querySelector('#inpStreet').value;
+        let plz = document.querySelector('#inpPlz').value;
+        let ort = document.querySelector('#inpOrt').value;
+        let mail = document.querySelector('#inpMail').value;
+        let comment = document.querySelector('#inpComment').value;
 
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
             chayns.intercom.sendMessageToPage({ 
