@@ -19,14 +19,9 @@ export default class siteList {
         this.$showMoreBtn.addEventListener('click', this.showMore);
 
         this.sb.onChange = (value) => {
-            console.log(value);
-            
-                
             this.displayedSites = 0;
-            
             this.createList(value);
         }
-        
     }
 
     createAccordion = ($parentDiv) => {
@@ -53,8 +48,6 @@ export default class siteList {
         this.searchTerm = searchTerm;
         const jsonUrl = `https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchTerm}`;
         const filter = `&Skip=${this.displayedSites}&Take=${this.sitesPerFetch + 1}`;
-
-        console.log(searchTerm);
 
         fetchSiteList(jsonUrl, filter)
         .then((fetchedData) => {
