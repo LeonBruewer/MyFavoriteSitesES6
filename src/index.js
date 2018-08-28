@@ -16,8 +16,9 @@ const init = async () => {
     // start Personfinder
     personFinderInit();
 
-    new siteList('tapp__content');
-    new addSiteForm('tapp__content');
+    let $tappContent = document.querySelector('.tapp__content');
+    new siteList($tappContent);
+    new addSiteForm($tappContent);
     document.querySelector('#aAdd').addEventListener('click', () => {
         document.querySelector('#addSite').className = 'accordion accordion--open';
         document.querySelector('#sitesAccordion').className = 'accordion';
