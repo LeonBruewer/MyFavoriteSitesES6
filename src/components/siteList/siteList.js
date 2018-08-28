@@ -20,7 +20,7 @@ export default class siteList {
 
         this.sb.onChange = (value) => {
             this.displayedSites = 0;
-            this.createList(value);
+            this.createList(value, 0);
         }
     }
 
@@ -41,15 +41,16 @@ export default class siteList {
         return $accordion;
     }
 
-    createList = (searchTerm) => {
+    createList = (searchTerm, count) => {
         this.data;
         this.searchTerm = searchTerm;
         const jsonUrl = `https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${searchTerm}`;
         const filter = `&Skip=${this.displayedSites}&Take=${this.sitesPerFetch + 1}`;
-
+        console.log(`filter: ${filter}`);
         fetchSiteList(jsonUrl, filter)
         .then((fetchedData) => {
-            if(this.displayedSites === 0) {
+            console.log(this.displayedSites);
+            if(count === 0) {
                 this.$siteList.innerHTML = '';
             }
             
@@ -72,7 +73,7 @@ export default class siteList {
                 new listItem(data, this.$siteList);
                 this.displayedSites++;
             }
-            
+
             this.$siteList.appendChild(this.$showMoreDiv);
             if (allowShowMore === true) {
                 this.$showMoreDiv.style.display = 'block';
