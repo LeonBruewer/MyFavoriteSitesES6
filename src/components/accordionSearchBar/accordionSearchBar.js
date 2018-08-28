@@ -2,14 +2,13 @@ import './accordionSearchBar.scss';
 import htmlToElement from 'html-to-element';
 
 class searchBar {
-
     constructor($accordionHead, defaultSearchTerm) {
         this.defaultSearchTerm = defaultSearchTerm;
         this.timeout;   
         this.$searchBarWrapper = this.getElement();        
         this.$searchBar = this.$searchBarWrapper.querySelector('#searchBar--searchTerm');
         $accordionHead.appendChild(this.$searchBarWrapper);
-        
+
         this.$searchBar.addEventListener('keyup', this.onKeyUp);
         this.$searchBar.addEventListener('keydown', () => {
             window.clearTimeout(this.timeout);
