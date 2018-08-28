@@ -20,7 +20,7 @@ class searchBar {
 
     onKeyUp = () => {
         this.timeout = setTimeout(() => {
-            let searchTerm = this.$searchBar.value;
+            let searchTerm;
 
             if (this.$searchBar.value !== '')
                 searchTerm = this.$searchBar.value;
@@ -28,7 +28,7 @@ class searchBar {
                 searchTerm = this.defaultSearchTerm;
             
             this.onChange(searchTerm);
-        }, 400);
+        }, 500);
     }
 
     getElement = () => {

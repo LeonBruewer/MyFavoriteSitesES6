@@ -1,4 +1,5 @@
 export default function fetchSiteList(url, filter) {
+
     let $siteList = document.querySelector('#siteList');
     return new Promise((resolve, reject) => {
         chayns.showWaitCursor();
